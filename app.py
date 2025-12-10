@@ -94,6 +94,12 @@ def main():
         st.title("Menu:")
         pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
         if st.button("Submit & Process"):
+            # To check if the uploaded doc is only pdf
+            only_pdf = []
+            for i in pdf_docs:
+                if 'application/pdf' == i.type:
+                    only_pdf.append(i)
+            pdf_docs = only_pdf
             with st.spinner("Processing..."):
                 raw_text = get_pdf_text(pdf_docs)
                 text_chunks = get_text_chunks(raw_text)
